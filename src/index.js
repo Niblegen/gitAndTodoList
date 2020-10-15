@@ -2,17 +2,41 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-class TodoList extends React.Component{
-  
+function Todo(props) {
+  return(
+    <label>
+      <input type="checkbox">
+      </input>
+      {props.value}
+    </label>
+  );
 }
 
-class ListSection extends React.Component {
-  render() {
-    return (
-      <div className="ListSection">
-        <div className="TodoList">
-          <h1>qwe</h1>
-        </div>
+class TodoList extends React.Component{
+  constructor(props){
+    super(props);
+    this.state = {
+      list: [[1,"qwe"], [2,"qwer"], [3,"qwett"]],
+    };
+  }
+
+  renderTodo(val){
+    return(
+      <Todo
+        value = {val}
+        isDone = {false}
+      />
+    );
+  }
+
+  render(){
+    return(
+      <div>
+        <ul>
+          {this.state.list.map(item => (
+            <li key={item[0]}>{this.renderTodo(item[1])}</li>
+          ))}
+        </ul>
       </div>
     );
   }
@@ -21,6 +45,6 @@ class ListSection extends React.Component {
 // ========================================
 
 ReactDOM.render(
-  <ListSection />,
+  <TodoList />,
   document.getElementById('root')
 );
